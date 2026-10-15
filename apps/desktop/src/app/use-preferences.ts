@@ -3,8 +3,22 @@ import type { Language } from "../i18n";
 
 export type ThemeMode = "light" | "dark" | "system";
 
+/** The first supported language in the system preference list; English otherwise. */
+export function detectLanguage(preferred: readonly string[]): Language {
+  for (const tag of preferred) {
+    const lower = tag.toLowerCase();
+    if (/^zh(-hant|-tw|-hk|-mo)/.test(lower)) return "zh-TW";
+    if (lower.startsWith("zh")) return "zh-CN";
+    if (lower.startsWith("ja")) return "ja";
+    if (lower.startsWith("en")) return "en";
+  }
+  return "en";
+}
+
 export function usePreferences() {
-  const [language, setLanguage] = useState<Language>(() => (localStorage.getItem("tunbridge.language") as Language | null) ?? "zh-CN");
+  // New installs follow the system language; an explicit choice is kept.
+  const [language, setLanguage] = useState<Language>(() =>
+    (localStorage.getItem("tunbridge.language") as Language | null) ?? detectLanguage(navigator.languages ?? [navigator.language]));
   // New installs follow the system appearance; an explicit choice is kept.
   const [themeMode, setThemeMode] = useState<ThemeMode>(() => (localStorage.getItem("tunbridge.theme") as ThemeMode | null) ?? "system");
 

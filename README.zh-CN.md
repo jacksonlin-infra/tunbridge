@@ -11,6 +11,12 @@ AI CLI、容器、原生应用）都走这个代理，不需要逐个设置。
                                    └→ 手工填写的远程 HTTP(S)/SOCKS5 endpoint
 ```
 
+<p align="center">
+  <img src="docs/images/overview.zh-CN.webp" alt="TunBridge 概览：系统 TUN 运行中" width="860">
+</p>
+
+更多截图见 [docs/screenshots.md](docs/screenshots.md#中文)。
+
 TunBridge **不**提供代理服务器、订阅或节点，不扫描局域网，也不解密 TLS 流量，只把流量送到你选定的上游。
 
 ## 功能
@@ -77,3 +83,13 @@ TunBridge 以 [GNU General Public License v3.0 或更高版本](LICENSE) 授权�
 Mihomo，见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
 
 TunBridge 是独立项目，与 Mihomo、Clash 及任何代理服务商无关。
+
+## Star 趋势
+
+<a href="https://www.star-history.com/#jacksonlin-infra/tunbridge&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=jacksonlin-infra/tunbridge&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=jacksonlin-infra/tunbridge&type=Date" />
+    <img alt="Star history chart" src="https://api.star-history.com/svg?repos=jacksonlin-infra/tunbridge&type=Date" />
+  </picture>
+</a>
