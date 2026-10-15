@@ -1,0 +1,53 @@
+[package]
+name = "tunbridge-service-macos"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish = false
+
+[features]
+macos-controller-client = []
+macos-development-harness = ["macos-native-lifecycle"]
+macos-dns-effects = []
+macos-engine-process = ["macos-controller-client"]
+macos-helper-scaffold = []
+macos-native-lifecycle = ["macos-engine-process", "macos-native-network-effects"]
+macos-native-network-effects = ["macos-dns-effects", "macos-route-effects"]
+macos-route-effects = []
+macos-xpc-listener = ["macos-native-lifecycle"]
+macos-development-bootstrap = [
+    "macos-xpc-listener",
+    "tunbridge-service/macos-development-bootstrap",
+    "dep:tunbridge-setup-macos",
+    "tunbridge-setup-macos/macos-development-installer",
+]
+
+[[bin]]
+name = "tunbridge-helper-macos"
+path = "src/bin/tunbridge-helper-macos.rs"
+required-features = ["macos-helper-scaffold"]
+
+[[bin]]
+name = "tunbridge-macos-core-harness"
+path = "src/bin/tunbridge-macos-core-harness.rs"
+required-features = ["macos-development-harness"]
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+serde_yaml.workspace = true
+sha2.workspace = true
+tunbridge-service = { path = "../../../../crates/tunbridge-service", features = [
+    "production-app-lease",
+    "production-local-observability",
+    "production-mihomo-logs-v4",
+] }
+tunbridge-desktop-contract = { path = "../../../../crates/tunbridge-desktop-contract" }
+tunbridge-core = { path = "../../../../crates/tunbridge-core" }
+zeroize.workspace = true
+tunbridge-setup-macos = { path = "../tunbridge-setup-macos", optional = true }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+libc.workspace = true
+block2.workspace = true
+security-framework = "3.7"

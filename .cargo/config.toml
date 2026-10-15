@@ -1,0 +1,4 @@
+[env]
+# Keep every Apple binary at the Monterey-compatible deployment target. Tauri's
+# bundle minimum and the static compatibility gate independently enforce this.
+MACOSX_DEPLOYMENT_TARGET = { value = "12.0", force = true }

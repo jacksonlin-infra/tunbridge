@@ -1,0 +1,8 @@
+mixed-port: 17897
+bind-address: 127.0.0.1
+allow-lan: false
+mode: rule
+log-level: debug
+external-controller: 127.0.0.1:17898
+rules:
+  - MATCH,DIRECT

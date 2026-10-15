@@ -1,0 +1,104 @@
+#!/bin/sh
+set -eu
+
+desktop_path=/usr/bin/tunbridge-desktop
+service_path=/usr/libexec/tunbridge/tunbridge-service-linux
+
+refuse_running_desktop() {
+    for process_exe in /proc/[0-9]*/exe; do
+        [ -L "$process_exe" ] || continue
+        executable=$(readlink "$process_exe" 2>/dev/null) || continue
+        if [ "$executable" = "$desktop_path" ] ||
+            [ "$executable" = "$desktop_path (deleted)" ]; then
+            echo "TunBridge Desktop is running. Quit it from the tray, then retry the upgrade." >&2
+            exit 1
+        fi
+    done
+}
+
+verify_restarted_service() {
+    service_identity_attempts=0
+    service_identity_verified=false
+    while [ "$service_identity_attempts" -lt 50 ]; do
+        systemctl --system is-active --quiet tunbridge.service || {
+            echo "TunBridge service failed to remain active after upgrade." >&2
+            exit 1
+        }
+        service_pid=$(systemctl --system show --property MainPID --value tunbridge.service)
+        case "$service_pid" in
+            ''|0|*[!0-9]*) service_executable= ;;
+            *) service_executable=$(readlink "/proc/$service_pid/exe" 2>/dev/null || true) ;;
+        esac
+        if [ "$service_executable" = "$service_path" ]; then
+            service_identity_verified=true
+            break
+        fi
+        service_identity_attempts=$((service_identity_attempts + 1))
+        sleep 0.1
+    done
+    if [ "$service_identity_verified" != true ]; then
+        echo "TunBridge service is not running the newly installed executable." >&2
+        exit 1
+    fi
+}
+
+remove_owned_file() {
+    target=$1
+    if [ ! -e "$target" ] && [ ! -L "$target" ]; then
+        return 0
+    fi
+    if [ ! -f "$target" ] || [ -L "$target" ] ||
+        [ "$(stat -c %u "$target")" != "0" ] ||
+        [ "$(stat -c %h "$target")" != "1" ]; then
+        echo "preserving unexpected TunBridge residue: $target" >&2
+        return 0
+    fi
+    rm -f -- "$target"
+}
+
+pre_upgrade() {
+    refuse_running_desktop
+}
+
+post_install() {
+    if [ -d /run/systemd/system ]; then
+        systemctl --system daemon-reload >/dev/null || true
+        systemctl --system enable tunbridge.service >/dev/null || true
+        systemctl --system start tunbridge.service >/dev/null || true
+    fi
+}
+
+post_upgrade() {
+    if [ -d /run/systemd/system ]; then
+        systemctl --system daemon-reload >/dev/null || true
+        systemctl --system restart tunbridge.service >/dev/null
+        verify_restarted_service
+    fi
+}
+
+pre_remove() {
+    if [ -d /run/systemd/system ]; then
+        systemctl --system stop tunbridge.service >/dev/null || true
+        systemctl --system disable tunbridge.service >/dev/null || true
+        # The engine outlives the service (KillMode=process). Removing the
+        # package is the user's decision to end the tunnel, so tear it down.
+        /usr/libexec/tunbridge/tunbridge-service-linux recover >/dev/null 2>&1 || true
+    fi
+}
+
+post_remove() {
+    if [ -d /run/systemd/system ]; then
+        systemctl --system daemon-reload >/dev/null || true
+    fi
+    remove_owned_file /var/lib/tunbridge/active-config.yaml
+    remove_owned_file /var/lib/tunbridge/owned-engine.json
+    remove_owned_file /var/lib/tunbridge/cache.db
+    remove_owned_file /var/lib/tunbridge/cache.db-shm
+    remove_owned_file /var/lib/tunbridge/cache.db-wal
+    remove_owned_file /var/lib/tunbridge/maintenance.lock
+    rmdir /var/lib/tunbridge 2>/dev/null || true
+    remove_owned_file /usr/libexec/tunbridge/mihomo.rollback
+    remove_owned_file /usr/share/tunbridge/engine-manifest.json.rollback
+    rmdir /usr/libexec/tunbridge 2>/dev/null || true
+    rmdir /usr/share/tunbridge 2>/dev/null || true
+}

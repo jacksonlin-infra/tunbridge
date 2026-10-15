@@ -1,0 +1,78 @@
+[package]
+name = "tunbridge-service"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[features]
+default = []
+# Exact Gate C product builds enable this boundary explicitly. The empty
+# feature set remains the fail-closed protocol-v1 Status-only audit build.
+production-lifecycle = []
+# Adds production protocol-v2 App lease. Connection-storm telemetry remains
+# disabled until a separately frozen structured controller source exists.
+production-app-lease = ["production-lifecycle"]
+# Adds owner-only local traffic observation to the product protocol. This is
+# local UI data only and does not enable connection-storm watchdog telemetry.
+production-local-observability = ["production-app-lease"]
+# Freezes the incompatible protocol-v3 remote-upstream wire contract. Product
+# platform crates enable this only after their lifecycle adapters consume the
+# tagged StartProfileV3 union.
+remote-upstream-v3 = ["production-local-observability"]
+# Adds the owner-only, generation-bound Mihomo log stream. The new capability
+# is deliberately published on protocol v4 because older typed capability
+# decoders cannot safely ignore the additional enum value.
+production-mihomo-logs-v4 = ["remote-upstream-v3", "dep:tungstenite"]
+# Only the elevated Windows lifecycle acceptance builds this feature, into an
+# isolated target directory. Release artifacts never enable it.
+acceptance-lifecycle = []
+# Builds the closed, protected fault selector used only by M2A-3f elevated
+# acceptance. It implies lifecycle publication but remains absent from normal
+# and success-path acceptance artifacts.
+acceptance-fault-injection = ["acceptance-lifecycle"]
+# Builds a fixed-mode SCM host used only to prove that the client rejects a
+# running service whose protected SCM command line is not the product command.
+acceptance-rejection = []
+# Builds the isolated protocol-v2 App lease and structured telemetry
+# acceptance surface. It remains absent from default and other acceptance
+# artifacts and never authorizes production lifecycle publication.
+acceptance-m2b5 = ["acceptance-lifecycle"]
+# Internal Monterey-only bootstrap command. This feature is deliberately not
+# enabled by any Windows/Linux or release product profile.
+macos-development-bootstrap = ["production-app-lease"]
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+serde_yaml = { workspace = true }
+thiserror = { workspace = true }
+zeroize = { workspace = true }
+tunbridge-core = { path = "../tunbridge-core" }
+tungstenite = { workspace = true, optional = true }
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", features = [
+    "Win32_Devices_DeviceAndDriverInstallation",
+    "Win32_Foundation",
+    "Win32_NetworkManagement_IpHelper",
+    "Win32_NetworkManagement_Ndis",
+    "Win32_NetworkManagement_WindowsFilteringPlatform",
+    "Win32_Networking_WinSock",
+    "Win32_Security",
+    "Win32_Security_Authorization",
+    "Win32_Security_Cryptography",
+    "Win32_Storage_FileSystem",
+    "Win32_System_IO",
+    "Win32_System_Pipes",
+    "Win32_System_Power",
+    "Win32_System_ProcessStatus",
+    "Win32_System_RemoteDesktop",
+    "Win32_System_Rpc",
+    "Win32_System_Services",
+    "Win32_System_SystemServices",
+    "Win32_System_Threading",
+    "Win32_System_WindowsProgramming",
+    "Win32_UI_Shell",
+    "Win32_UI_WindowsAndMessaging",
+    "Win32_System_Com",
+] }

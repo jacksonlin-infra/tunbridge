@@ -1,0 +1,15 @@
+#!/bin/sh
+set -eu
+
+PATH=/usr/sbin:/usr/bin:/sbin:/bin
+export PATH
+
+if [ -z "${DPKG_ROOT:-}" ] && [ "$1" = "remove" ] &&
+    [ -d /run/systemd/system ]; then
+    deb-systemd-invoke stop tunbridge.service >/dev/null || true
+    # The engine outlives the service (KillMode=process). Removing the
+    # package is the user's decision to end the tunnel, so tear it down.
+    /usr/libexec/tunbridge/tunbridge-service-linux recover >/dev/null 2>&1 || true
+fi
+
+exit 0

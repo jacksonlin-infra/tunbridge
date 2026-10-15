@@ -1,0 +1,15 @@
+[package]
+name = "tunbridge-platform-macos"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish = false
+
+[dependencies]
+tunbridge-desktop-contract = { path = "../../../../crates/tunbridge-desktop-contract" }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+libc.workspace = true
+plist = "1"
+security-framework = "3.7"
+security-framework-sys = "2.17"

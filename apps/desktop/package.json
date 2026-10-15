@@ -1,0 +1,38 @@
+{
+  "name": "tunbridge-desktop-ui",
+  "version": "0.4.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 1420 --strictPort",
+    "dev:mock": "vite --mode mock --host 127.0.0.1 --port 1420 --strictPort",
+    "build": "tsc --noEmit && vite build",
+    "check:macos-compat": "node ../../scripts/ci/check-macos-compat.mjs && node --test ../../scripts/ci/fetch-macos-mihomo.test.mjs",
+    "check:macos-engine-lock": "node ../../scripts/fetch-macos-mihomo.mjs validate-lock",
+    "check:version-sync": "node ../../scripts/release/check-version-sync.mjs",
+    "check:release-tag": "node ../../scripts/release/check-release-tag.mjs",
+    "check:release-surface": "node ../../scripts/ci/check-desktop-release-surface.mjs",
+    "check:windows-setup": "node ../../scripts/ci/check-windows-setup.mjs",
+    "test:release-manifest": "node --test ../../scripts/release/generate-update-manifest.test.mjs",
+    "bundle:linux:deb": "../../scripts/build-linux-desktop-deb.sh",
+    "bundle:linux:omarchy": "../../scripts/build-linux-desktop-omarchy.sh",
+    "bundle:macos:candidate": "../../scripts/build-macos-desktop-candidate.sh",
+    "bundle:macos:artifacts": "../../scripts/build-macos-desktop-artifacts.sh",
+    "test": "vitest run",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "2.11.1",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "2.11.4",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.3",
+    "typescript": "7.0.2",
+    "vite": "8.1.5",
+    "vitest": "4.1.10"
+  }
+}

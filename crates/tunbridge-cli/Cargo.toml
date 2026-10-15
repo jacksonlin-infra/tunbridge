@@ -1,0 +1,24 @@
+[package]
+name = "tunbridge-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[features]
+default = ["production-service"]
+production-service = ["tunbridge-service/production-mihomo-logs-v4"]
+
+[[bin]]
+name = "tunbridge"
+path = "src/main.rs"
+
+[dependencies]
+tunbridge-core = { path = "../tunbridge-core" }
+tunbridge-service = { path = "../tunbridge-service" }
+clap = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+[dev-dependencies]
+assert_cmd = { workspace = true }
+predicates = { workspace = true }

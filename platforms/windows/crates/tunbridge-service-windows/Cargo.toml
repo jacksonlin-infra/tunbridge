@@ -1,0 +1,13 @@
+[package]
+name = "tunbridge-service-windows"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish = false
+
+[target.'cfg(windows)'.dependencies]
+tunbridge-service = { path = "../../../../crates/tunbridge-service", features = ["production-mihomo-logs-v4"] }
+
+[target.'cfg(windows)'.dev-dependencies]
+serde_json = { workspace = true }
+tunbridge-core = { path = "../../../../crates/tunbridge-core" }

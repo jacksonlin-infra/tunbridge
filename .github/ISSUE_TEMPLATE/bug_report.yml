@@ -1,0 +1,54 @@
+name: Bug report
+description: Something does not work as described.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Security problems must be reported privately; see SECURITY.md.
+        Remove proxy addresses, usernames and passwords from anything you paste.
+  - type: input
+    id: version
+    attributes:
+      label: TunBridge version
+      placeholder: "0.4.1"
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - Windows 11 x86_64
+        - Ubuntu 24.04 / 26.04 x86_64
+        - Omarchy 4 x86_64
+        - macOS Apple silicon
+        - macOS Intel
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Exact OS version
+  - type: dropdown
+    id: upstream
+    attributes:
+      label: Upstream kind
+      options:
+        - Local proxy client (127.0.0.1)
+        - Remote HTTP(S) or SOCKS5 endpoint
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics
+      description: Tunnel state and recent events from the app, with private details removed.

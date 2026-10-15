@@ -1,0 +1,61 @@
+#!/bin/sh
+set -eu
+
+PATH=/usr/sbin:/usr/bin:/sbin:/bin
+export PATH
+
+if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] ||
+    [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ]; then
+    deb-systemd-helper unmask tunbridge.service >/dev/null || true
+    if deb-systemd-helper --quiet was-enabled tunbridge.service; then
+        deb-systemd-helper enable tunbridge.service >/dev/null || true
+    else
+        deb-systemd-helper update-state tunbridge.service >/dev/null || true
+    fi
+fi
+
+if [ -z "${DPKG_ROOT:-}" ] &&
+    { [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] ||
+      [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ]; } &&
+    [ -d /run/systemd/system ]; then
+    systemctl --system daemon-reload >/dev/null || true
+    if [ -n "${2:-}" ]; then
+        action=restart
+    else
+        action=start
+    fi
+    if [ "$action" = "restart" ]; then
+        deb-systemd-invoke restart tunbridge.service >/dev/null
+        service_identity_attempts=0
+        service_identity_verified=false
+        while [ "$service_identity_attempts" -lt 50 ]; do
+            systemctl --system is-active --quiet tunbridge.service || {
+                echo "TunBridge service failed to remain active after upgrade." >&2
+                exit 1
+            }
+            service_pid=$(systemctl --system show --property MainPID --value tunbridge.service)
+            case "$service_pid" in
+                ''|0|*[!0-9]*)
+                    service_executable=
+                    ;;
+                *)
+                    service_executable=$(readlink "/proc/$service_pid/exe" 2>/dev/null || true)
+                    ;;
+            esac
+            if [ "$service_executable" = "/usr/libexec/tunbridge/tunbridge-service-linux" ]; then
+                service_identity_verified=true
+                break
+            fi
+            service_identity_attempts=$((service_identity_attempts + 1))
+            sleep 0.1
+        done
+        if [ "$service_identity_verified" != true ]; then
+            echo "TunBridge service is not running the newly installed executable." >&2
+            exit 1
+        fi
+    else
+        deb-systemd-invoke start tunbridge.service >/dev/null || true
+    fi
+fi
+
+exit 0

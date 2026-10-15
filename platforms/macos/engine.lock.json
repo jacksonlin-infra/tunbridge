@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "version": "v1.19.30",
+  "releaseUrl": "https://github.com/MetaCubeX/mihomo/releases/tag/v1.19.30",
+  "sourceUrl": "https://github.com/MetaCubeX/mihomo/tree/v1.19.30",
+  "license": "GPL-3.0",
+  "licenseUrl": "https://github.com/MetaCubeX/mihomo/blob/v1.19.30/LICENSE",
+  "targets": {
+    "aarch64-apple-darwin": {
+      "asset": "mihomo-darwin-arm64-v1.19.30.gz",
+      "downloadUrl": "https://github.com/MetaCubeX/mihomo/releases/download/v1.19.30/mihomo-darwin-arm64-v1.19.30.gz",
+      "archiveSize": 16805556,
+      "archiveSha256": "2c7f3a7904fa1cee291e124123e630e7b1ebd13765dd9bf26c0a28432004d9f4",
+      "binarySize": 45643538,
+      "binarySha256": "e80c6334b4e3aae53dfbc86cddd4434cec1565a61d4483931fac2ae12fec6d30",
+      "minimumSystemVersion": "11.0"
+    },
+    "x86_64-apple-darwin": {
+      "asset": "mihomo-darwin-amd64-compatible-v1.19.30.gz",
+      "downloadUrl": "https://github.com/MetaCubeX/mihomo/releases/download/v1.19.30/mihomo-darwin-amd64-compatible-v1.19.30.gz",
+      "archiveSize": 18300486,
+      "archiveSha256": "6e75de0732e8afabe413ff7c235e8f16226ce136672371c60787cbf9607402c5",
+      "binarySize": 49677184,
+      "binarySha256": "30895e01ba17cc4293f9fa192c0601e91fcb812acb72a03a0286b8ffef72dadc",
+      "minimumSystemVersion": "10.13"
+    }
+  }
+}

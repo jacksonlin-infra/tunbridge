@@ -1,0 +1,33 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-local-profile",
+  "description": "Status, bounded local diagnostics, and strict current-user profiles for the single bundled TunBridge main window.",
+  "windows": ["main"],
+  "local": true,
+  "permissions": [
+    "core:event:allow-listen",
+    "allow-get-status",
+    "allow-take-pending-tray-navigation",
+    "allow-get-traffic-snapshot",
+    "allow-get-connections-page",
+    "allow-get-mihomo-logs-page",
+    "allow-close-owned-connections",
+    "allow-home-diagnostics",
+    "allow-app-update",
+    "allow-discover-upstreams",
+    "allow-test-upstream",
+    "allow-list-profiles",
+    "allow-create-profile",
+    "allow-update-profile",
+    "allow-delete-profile",
+    "allow-test-saved-profile",
+    "allow-start-saved-profile",
+    "allow-get-active-profile-id",
+    "allow-stop-tunnel",
+    "allow-recover-tunnel",
+    "allow-install-product",
+    "allow-uninstall-product",
+    "allow-confirm-exit",
+    "allow-get-tunnel-events"
+  ]
+}

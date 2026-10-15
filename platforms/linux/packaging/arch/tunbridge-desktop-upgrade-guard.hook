@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = tunbridge-desktop
+
+[Action]
+Description = Checking that TunBridge Desktop is not running...
+When = PreTransaction
+Depends = coreutils
+Exec = /usr/libexec/tunbridge/tunbridge-package-guard
+AbortOnFail

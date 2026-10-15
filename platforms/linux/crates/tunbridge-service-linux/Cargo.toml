@@ -1,0 +1,20 @@
+[package]
+name = "tunbridge-service-linux"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish = false
+
+[features]
+default = ["product-protocol-v4"]
+product-protocol-v4 = ["tunbridge-service/production-mihomo-logs-v4"]
+
+[target.'cfg(target_os = "linux")'.dependencies]
+libc.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+zeroize.workspace = true
+sha2.workspace = true
+tunbridge-core = { path = "../../../../crates/tunbridge-core" }
+tunbridge-desktop-contract = { path = "../../../../crates/tunbridge-desktop-contract" }
+tunbridge-service = { path = "../../../../crates/tunbridge-service" }

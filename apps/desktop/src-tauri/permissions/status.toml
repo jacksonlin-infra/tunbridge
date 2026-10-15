@@ -1,0 +1,114 @@
+[[permission]]
+identifier = "allow-get-status"
+description = "Allows the main TunBridge window to request the fixed, read-only service status."
+commands.allow = ["get_status"]
+
+[[permission]]
+identifier = "allow-get-traffic-snapshot"
+description = "Allows the main TunBridge window to request owner-authorized, bounded local traffic totals and rates."
+commands.allow = ["get_traffic_snapshot"]
+
+[[permission]]
+identifier = "allow-get-connections-page"
+description = "Allows the main TunBridge window to request one owner-authorized, bounded page of redacted local connection metadata."
+commands.allow = ["get_connections_page"]
+
+[[permission]]
+identifier = "allow-get-mihomo-logs-page"
+description = "Allows the main TunBridge window to request one owner-authorized, bounded page of redacted in-memory Mihomo logs."
+commands.allow = ["get_mihomo_logs_page"]
+
+[[permission]]
+identifier = "allow-close-owned-connections"
+description = "Allows the main TunBridge window to close one validated active connection or all connections in the caller-owned engine session."
+commands.allow = ["close_connection", "close_all_connections"]
+
+[[permission]]
+identifier = "allow-home-diagnostics"
+description = "Allows fixed HTTPS website tests, consent-gated IP information, and read-only Windows version information."
+commands.allow = ["test_website", "get_ip_information", "get_system_information", "set_auto_launch", "get_core_update_information", "install_core_update"]
+
+[[permission]]
+identifier = "allow-app-update"
+description = "Allows the main window to check the fixed TunBridge GitHub release channel and open the fixed releases page."
+commands.allow = ["get_app_update_information", "open_app_releases_page"]
+
+[[permission]]
+identifier = "allow-discover-upstreams"
+description = "Allows the main TunBridge window to run the fixed, bounded loopback proxy discovery operation."
+commands.allow = ["discover_upstreams"]
+
+[[permission]]
+identifier = "allow-test-upstream"
+description = "Allows the main TunBridge window to test one validated loopback proxy against the fixed connectivity target."
+commands.allow = ["test_upstream"]
+
+[[permission]]
+identifier = "allow-list-profiles"
+description = "Allows the main TunBridge window to list the current user's non-sensitive local proxy profiles."
+commands.allow = ["list_profiles"]
+
+[[permission]]
+identifier = "allow-create-profile"
+description = "Allows the main TunBridge window to create one strict current-user local proxy profile."
+commands.allow = ["create_profile"]
+
+[[permission]]
+identifier = "allow-update-profile"
+description = "Allows the main TunBridge window to update one exact current-user local proxy profile revision."
+commands.allow = ["update_profile"]
+
+[[permission]]
+identifier = "allow-delete-profile"
+description = "Allows the main TunBridge window to delete one exact current-user local proxy profile revision."
+commands.allow = ["delete_profile"]
+
+[[permission]]
+identifier = "allow-test-saved-profile"
+description = "Allows the main TunBridge window to test one exact saved profile against the fixed connectivity target."
+commands.allow = ["test_saved_profile"]
+
+[[permission]]
+identifier = "allow-start-saved-profile"
+description = "Allows the main window to start TunBridge from one exact saved profile revision."
+commands.allow = ["start_saved_profile"]
+
+[[permission]]
+identifier = "allow-stop-tunnel"
+description = "Allows the main window to request owner-authorized TunBridge stop."
+commands.allow = ["stop_tunnel"]
+
+[[permission]]
+identifier = "allow-recover-tunnel"
+description = "Allows the main window to request owner or administrator-authorized recovery."
+commands.allow = ["recover_tunnel"]
+
+[[permission]]
+identifier = "allow-install-product"
+description = "Allows the main window to launch the adjacent hash-pinned setup with the fixed install verb."
+commands.allow = ["install_product"]
+
+[[permission]]
+identifier = "allow-uninstall-product"
+description = "Allows the main window to launch the adjacent hash-pinned setup with the fixed uninstall verb."
+commands.allow = ["uninstall_product"]
+
+[[permission]]
+identifier = "allow-confirm-exit"
+description = "Allows the main window to answer the quit question: stop the tunnel and quit, or keep the tunnel and quit."
+commands.allow = ["confirm_exit"]
+
+[[permission]]
+identifier = "allow-get-active-profile-id"
+description = "Allows the main window to read the profile identifier of its own active TunBridge lease."
+commands.allow = ["get_active_profile_id"]
+
+[[permission]]
+identifier = "allow-take-pending-tray-navigation"
+description = "Allows the main window to consume the fixed page queued by the native tray menu."
+commands.allow = ["take_pending_tray_navigation"]
+
+[[permission]]
+identifier = "allow-get-tunnel-events"
+description = "Allows the main window to read the newest entries of its own bounded local tunnel event log, which holds no addresses or names."
+commands.allow = ["get_tunnel_events"]

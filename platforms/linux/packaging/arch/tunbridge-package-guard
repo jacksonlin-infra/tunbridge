@@ -1,0 +1,14 @@
+#!/bin/sh
+set -eu
+
+desktop_path=/usr/bin/tunbridge-desktop
+
+for process_exe in /proc/[0-9]*/exe; do
+    [ -L "$process_exe" ] || continue
+    executable=$(readlink "$process_exe" 2>/dev/null) || continue
+    if [ "$executable" = "$desktop_path" ] ||
+        [ "$executable" = "$desktop_path (deleted)" ]; then
+        echo "TunBridge Desktop is running. Quit it from the tray, then retry the upgrade." >&2
+        exit 1
+    fi
+done

@@ -1,0 +1,9 @@
+[package]
+name = "tunbridge-setup-windows"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish = false
+
+[target.'cfg(windows)'.dependencies]
+tunbridge-setup = { path = "../../../../crates/tunbridge-setup" }

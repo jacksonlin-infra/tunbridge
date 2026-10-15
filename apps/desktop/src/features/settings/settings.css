@@ -1,0 +1,23 @@
+/* Settings: two columns of grouped rows. */
+.settings-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
+.settings-column { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.settings-column .panel-head { padding-bottom: 12px; border-bottom: 1px solid var(--line-soft); }
+.settings-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 20px; }
+.settings-row + .settings-row { border-top: 1px solid var(--line-soft); }
+.settings-row-copy { display: grid; gap: 2px; min-width: 0; }
+.settings-row-copy strong { font-size: 13px; font-weight: 600; color: var(--ink); }
+.settings-row-copy > span { font-size: 12px; color: var(--muted); }
+.settings-row-control { flex: 0 0 auto; display: flex; align-items: center; gap: 8px; }
+.appearance-row { justify-content: flex-start; gap: 24px; }
+.appearance-field { display: flex; align-items: center; gap: 10px; color: var(--ink); font-size: 13px; }
+.appearance-field strong { font-weight: 600; }
+.update-actions { padding-top: 0; }
+.update-actions > span:last-child { display: flex; align-items: center; gap: 12px; }
+.settings-footnote { margin: 0; padding: 0 20px 12px; font-size: 11px; color: var(--muted); }
+.settings-footnote.danger { color: var(--danger-ink); }
+.settings-privacy { margin: 0; color: var(--ink-2); }
+.settings-messages { display: grid; gap: 8px; }
+
+@media (max-width: 1100px) {
+  .settings-grid { grid-template-columns: minmax(0, 1fr); }
+}

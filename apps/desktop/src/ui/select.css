@@ -1,0 +1,35 @@
+/* Custom dropdown that replaces the native <select>. */
+.select-trigger {
+  display: inline-flex; align-items: center; justify-content: space-between; gap: 10px;
+  min-width: 120px; height: 34px; padding: 0 10px 0 12px; border: 1px solid var(--control-line); border-radius: 9px;
+  background: var(--surface); color: var(--ink); font: inherit; font-size: 13px; text-align: left; cursor: pointer;
+  transition: border-color .12s, box-shadow .12s;
+}
+.select-trigger.compact { height: 32px; min-width: 104px; }
+.select-trigger .icon { color: var(--muted); transition: transform .15s; }
+.select-trigger.open .icon { transform: rotate(180deg); }
+.select-trigger:hover:not(:disabled) { border-color: color-mix(in srgb, var(--accent) 45%, var(--control-line)); }
+.select-trigger.open,
+.app-shell .select-trigger:focus-visible {
+  outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.select-trigger:disabled { opacity: .55; cursor: not-allowed; }
+.select-value { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.select-menu {
+  position: fixed; z-index: 80; margin: 0; padding: 5px; list-style: none; overflow-y: auto;
+  border: 1px solid var(--line); border-radius: 11px; background: var(--surface);
+  box-shadow: 0 12px 32px rgba(15, 35, 28, .16), 0 2px 6px rgba(15, 35, 28, .08);
+  animation: select-in .12s ease-out;
+}
+:root[data-theme="dark"] .select-menu { box-shadow: 0 12px 32px rgba(0, 0, 0, .45); }
+.select-menu.above { animation-name: select-in-above; }
+@keyframes select-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+@keyframes select-in-above { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.select-option {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 32px; padding: 0 10px;
+  border-radius: 7px; color: var(--ink); font-size: 13px; cursor: pointer; white-space: nowrap;
+}
+.select-option.active { background: var(--surface-3); }
+.select-option[aria-selected="true"] { color: var(--accent-ink); font-weight: 600; }
+.select-option .icon { color: var(--accent); }

@@ -1,0 +1,22 @@
+#!/bin/sh
+set -eu
+
+PATH=/usr/sbin:/usr/bin:/sbin:/bin
+export PATH
+
+desktop_path=/usr/bin/tunbridge-desktop
+
+# A running executable keeps the old inode after dpkg replaces its path. Refuse
+# the transaction before unpacking so an apparently successful upgrade can
+# never leave the old Desktop process serving the tray and WebView.
+for process_exe in /proc/[0-9]*/exe; do
+    [ -L "$process_exe" ] || continue
+    executable=$(readlink "$process_exe" 2>/dev/null) || continue
+    if [ "$executable" = "$desktop_path" ] ||
+        [ "$executable" = "$desktop_path (deleted)" ]; then
+        echo "TunBridge Desktop is running. Quit it from the tray, then retry the upgrade." >&2
+        exit 1
+    fi
+done
+
+exit 0

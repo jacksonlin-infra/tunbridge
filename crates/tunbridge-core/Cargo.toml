@@ -1,0 +1,22 @@
+[package]
+name = "tunbridge-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+serde = { workspace = true }
+serde_yaml = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+zeroize = { workspace = true }
+sha2 = { workspace = true }
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", features = ["Win32_Foundation", "Win32_System_Console"] }
+
+# Fixture binary used by tests/spawn_no_handle_leak.rs to reproduce the
+# daemonized-grandchild pipe leak from a parent that captures stdout.
+[[bin]]
+name = "tb-spawn-probe"
+path = "src/bin/tb_spawn_probe.rs"

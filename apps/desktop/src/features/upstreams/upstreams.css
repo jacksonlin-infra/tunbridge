@@ -1,0 +1,54 @@
+/* Upstreams: saved table, local discovery, editor, outage policy. */
+.upstreams-grid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.upstreams-main, .upstreams-side { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.upstreams-main .panel-head { padding-bottom: 12px; }
+.panel-head > div { display: grid; gap: 2px; }
+
+.upstream-table { margin-top: 0; }
+.upstream-table th { background: var(--surface-2); }
+.upstream-table td { padding: 12px 20px; }
+.upstream-table th { padding: 8px 20px; }
+.upstream-table td strong { display: block; font-size: 13px; font-weight: 600; }
+.upstream-table td .mono { display: block; font-size: 11.5px; color: var(--ink-2); }
+.upstream-table tr.selected td { background: var(--accent-tint); }
+.upstream-table .actions { text-align: right; white-space: nowrap; }
+.row-actions { display: inline-flex; gap: 14px; }
+.row-actions .btn-link { font-weight: 500; }
+.locked-note { display: inline-flex; align-items: center; gap: 4px; color: var(--muted); font-size: 12px; }
+
+.discovery-list { display: grid; gap: 0; padding: 0; }
+.discovery-list > .notice { margin: 0 20px 10px; }
+.discovery-item, .discovery-empty {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 20px;
+  border-top: 1px solid var(--line-soft);
+}
+.discovery-item > span:first-child { display: grid; min-width: 0; }
+.discovery-item strong { font-size: 13px; color: var(--ink); }
+.discovery-item span span { font-size: 12px; color: var(--muted); }
+.discovery-empty { color: var(--ink-2); }
+
+.profile-editor-panel .panel-head { padding-bottom: 6px; }
+.editor-fields { margin: 0; padding: 8px 20px 18px; border: 0; display: grid; gap: 12px; min-width: 0; }
+.field { display: grid; gap: 5px; min-width: 0; color: var(--ink-2); font-size: 12px; font-weight: 500; }
+.field > span { float: none; color: var(--ink-2); font-weight: 500; }
+.field em { font-style: normal; color: var(--muted); font-weight: 400; }
+.app-shell .field input, .app-shell .field select { width: 100%; margin: 0; }
+.field-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.field-note { margin: 0; font-size: 11px; color: var(--muted); }
+.segmented { display: grid; grid-template-columns: 1fr 1fr; padding: 3px; border-radius: 9px; background: var(--surface-3); }
+.segmented button {
+  height: 28px; border: 0; border-radius: 7px; background: transparent; color: var(--ink-2); font: inherit; font-size: 12px; cursor: pointer;
+}
+.segmented button[aria-checked="true"] { background: var(--surface); color: var(--ink); font-weight: 600; box-shadow: var(--shadow); }
+.editor-buttons { display: flex; gap: 8px; }
+.editor-results { display: grid; gap: 8px; padding-top: 0; }
+.notice span strong { margin-bottom: 1px; }
+
+.policy-card .panel-body { display: grid; gap: 12px; }
+.policy-card .notice span { display: grid; gap: 2px; }
+.policy-note { margin: 0; padding: 10px 12px; border-radius: 10px; background: var(--surface-3); color: var(--ink-2); font-size: 12px; }
+
+@media (max-width: 1100px) {
+  .upstreams-grid { grid-template-columns: minmax(0, 1fr); }
+}
+.field .select-trigger { width: 100%; }

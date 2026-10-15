@@ -1,0 +1,24 @@
+pkgname=tunbridge-desktop
+pkgver=@PRODUCT_VERSION@
+pkgrel=1
+pkgdesc='Managed system TUN for an existing HTTP or SOCKS5 proxy'
+arch=('x86_64')
+url='https://github.com/jacksonlin-infra/tunbridge'
+license=('GPL-3.0-or-later')
+depends=(
+  'gtk3'
+  'libayatana-appindicator'
+  'libsecret'
+  'iproute2'
+  'nftables'
+  'polkit'
+  'systemd'
+  'webkit2gtk-4.1'
+  'xdg-utils'
+)
+options=('!debug' '!strip')
+install=tunbridge-desktop.install
+
+package() {
+  cp -a "$startdir/payload/." "$pkgdir/"
+}

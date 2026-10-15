@@ -1,0 +1,45 @@
+#!/bin/sh
+set -eu
+
+PATH=/usr/sbin:/usr/bin:/sbin:/bin
+export PATH
+
+remove_owned_file() {
+    target=$1
+    if [ ! -e "$target" ] && [ ! -L "$target" ]; then
+        return 0
+    fi
+    if [ ! -f "$target" ] || [ -L "$target" ] ||
+        [ "$(stat -c %u "$target")" != "0" ] ||
+        [ "$(stat -c %h "$target")" != "1" ]; then
+        echo "preserving unexpected TunBridge residue: $target" >&2
+        return 0
+    fi
+    rm -f -- "$target"
+}
+
+if [ -z "${DPKG_ROOT:-}" ] && [ "$1" = "remove" ] &&
+    [ -d /run/systemd/system ]; then
+    systemctl --system daemon-reload >/dev/null || true
+fi
+
+if [ "$1" = "purge" ]; then
+    deb-systemd-helper purge tunbridge.service >/dev/null || true
+fi
+
+if [ "$1" = "remove" ] || [ "$1" = "purge" ]; then
+    remove_owned_file /var/lib/tunbridge/active-config.yaml
+    remove_owned_file /var/lib/tunbridge/owned-engine.json
+    remove_owned_file /var/lib/tunbridge/cache.db
+    remove_owned_file /var/lib/tunbridge/cache.db-shm
+    remove_owned_file /var/lib/tunbridge/cache.db-wal
+    remove_owned_file /var/lib/tunbridge/maintenance.lock
+    rmdir /var/lib/tunbridge 2>/dev/null || true
+
+    remove_owned_file /usr/libexec/tunbridge/mihomo.rollback
+    remove_owned_file /usr/share/tunbridge/engine-manifest.json.rollback
+    rmdir /usr/libexec/tunbridge 2>/dev/null || true
+    rmdir /usr/share/tunbridge 2>/dev/null || true
+fi
+
+exit 0

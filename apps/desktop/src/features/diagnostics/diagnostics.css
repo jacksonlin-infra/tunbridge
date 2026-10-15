@@ -1,0 +1,30 @@
+/* Diagnostics: route banner, target grid, side panels. */
+.route-banner {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 6px 14px; padding: 12px 16px;
+  border: 1px solid var(--line); border-radius: 12px; background: var(--surface); font-size: 12px;
+}
+.route-banner strong { color: var(--ink); font-weight: 600; }
+.route-banner-meta { margin-left: auto; color: var(--muted); }
+
+.diagnostics-grid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.target-panel { display: flex; flex-direction: column; overflow: hidden; }
+.target-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.target-cell {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto 64px 26px; align-items: center; gap: 10px;
+  padding: 14px 16px 14px 18px; border-bottom: 1px solid var(--line-soft);
+}
+.target-cell:nth-child(odd) { border-right: 1px solid var(--line-soft); }
+.target-copy { display: grid; min-width: 0; }
+.target-copy strong { font-size: 13px; font-weight: 600; color: var(--ink); }
+.target-copy span { font-size: 11.5px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.target-latency { font-size: 12px; color: var(--ink-2); text-align: right; font-variant-numeric: tabular-nums; }
+.target-failed { background: color-mix(in srgb, var(--danger-bg) 60%, var(--surface)); }
+.target-failed .target-copy span { color: var(--danger-ink); }
+.target-cell .badge { grid-column: 2; }
+.target-cell .icon-close:disabled { opacity: .45; cursor: not-allowed; }
+.exit-ip-panel .detail-list { grid-template-columns: 64px minmax(0, 1fr); }
+.exit-ip-panel p { margin: 0; }
+
+@media (max-width: 1100px) {
+  .diagnostics-grid { grid-template-columns: minmax(0, 1fr); }
+}

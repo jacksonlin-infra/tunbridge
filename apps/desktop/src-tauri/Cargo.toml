@@ -1,0 +1,77 @@
+[package]
+name = "tunbridge-desktop"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+build = "build.rs"
+
+[features]
+default = ["production-service"]
+production-service = ["tunbridge-service/production-mihomo-logs-v4"]
+omarchy-package = []
+# Compiles only the isolated current-user Credential Manager acceptance test.
+# It never registers a Tauri command or service capability.
+acceptance-m3-profile = []
+# Internal Monterey VM acceptance path. This is not part of default or
+# release builds; production installer wiring remains fail-closed.
+macos-development-installer = [
+    "tunbridge-service/macos-development-bootstrap",
+    "tunbridge-service-macos/macos-development-bootstrap",
+    "tunbridge-setup-macos/macos-development-installer",
+]
+
+[lib]
+name = "tunbridge_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[[bin]]
+name = "tunbridge-desktop"
+path = "src/main.rs"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+tauri = { workspace = true }
+tunbridge-core = { path = "../../../crates/tunbridge-core" }
+tunbridge-desktop-contract = { path = "../../../crates/tunbridge-desktop-contract" }
+tunbridge-service = { path = "../../../crates/tunbridge-service" }
+zeroize = { workspace = true }
+sha2 = { workspace = true }
+flate2 = { workspace = true }
+semver = { workspace = true }
+notify-rust = "=4.18.0"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", features = [
+    "Win32_Foundation",
+    "Win32_Networking_WinHttp",
+    "Win32_Security",
+    "Win32_Security_Authorization",
+    "Win32_Security_Credentials",
+    "Win32_Security_Cryptography",
+    "Win32_Storage_FileSystem",
+    "Win32_System_Com",
+    "Win32_System_Registry",
+    "Win32_System_Threading",
+    "Win32_UI_Shell",
+    "Win32_UI_WindowsAndMessaging",
+] }
+
+[target.'cfg(any(windows, target_os = "macos"))'.dependencies]
+tauri-plugin-single-instance = "=2.4.2"
+
+[target.'cfg(target_os = "linux")'.dependencies]
+libc.workspace = true
+tunbridge-platform-linux = { path = "../../../platforms/linux/crates/tunbridge-platform-linux" }
+tunbridge-service-linux = { path = "../../../platforms/linux/crates/tunbridge-service-linux" }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+libc.workspace = true
+objc2 = "=0.6.4"
+objc2-foundation = { version = "=0.3.2", default-features = false, features = ["std", "NSObject", "NSProcessInfo", "NSString"] }
+tunbridge-platform-macos = { path = "../../../platforms/macos/crates/tunbridge-platform-macos" }
+tunbridge-service-macos = { path = "../../../platforms/macos/crates/tunbridge-service-macos" }
+tunbridge-setup-macos = { path = "../../../platforms/macos/crates/tunbridge-setup-macos" }

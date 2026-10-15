@@ -1,0 +1,44 @@
+{
+  "bundle": {
+    "active": true,
+    "targets": [
+      "deb"
+    ],
+    "publisher": "TunBridge Project",
+    "category": "Utility",
+    "shortDescription": "Add system-level TUN support to an existing local proxy.",
+    "longDescription": "TunBridge adds a managed system TUN to an existing loopback HTTP or SOCKS5 proxy. The Linux desktop provides the same profile, lifecycle, traffic, diagnostics and maintenance workflows as the Windows product.",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.png"
+    ],
+    "linux": {
+      "deb": {
+        "depends": [
+          "libayatana-appindicator3-1",
+          "libsecret-tools",
+          "iproute2",
+          "nftables",
+          "pkexec",
+          "systemd"
+        ],
+        "section": "net",
+        "priority": "optional",
+        "files": {
+          "/usr/libexec/tunbridge/mihomo": "../../../target/release/mihomo",
+          "/usr/libexec/tunbridge/tunbridge-maintenance-linux": "../../../target/release/tunbridge-maintenance-linux",
+          "/usr/libexec/tunbridge/tunbridge-service-linux": "../../../target/release/tunbridge-service-linux",
+          "/usr/share/tunbridge/engine-manifest.json": "../../../platforms/linux/packaging/deb/engine-manifest.json",
+          "/usr/lib/systemd/system/tunbridge.service": "../../../platforms/linux/packaging/systemd/tunbridge.service",
+          "/usr/share/tunbridge/linux-service-layout.json": "../../../platforms/linux/packaging/deb/linux-service-layout.json"
+        },
+        "preInstallScript": "../../../platforms/linux/packaging/deb/preinst",
+        "postInstallScript": "../../../platforms/linux/packaging/deb/postinst",
+        "preRemoveScript": "../../../platforms/linux/packaging/deb/prerm",
+        "postRemoveScript": "../../../platforms/linux/packaging/deb/postrm"
+      }
+    }
+  }
+}

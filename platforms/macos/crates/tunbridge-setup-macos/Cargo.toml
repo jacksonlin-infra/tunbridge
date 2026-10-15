@@ -1,0 +1,20 @@
+[package]
+name = "tunbridge-setup-macos"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish = false
+
+[features]
+default = []
+# Enables the ad-hoc Monterey bootstrap validation used only by the internal
+# VM acceptance bundle. Release builds keep the signed-generation path closed.
+macos-development-installer = []
+
+[dependencies]
+libc.workspace = true
+plist = "1"
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+tunbridge-desktop-contract = { path = "../../../../crates/tunbridge-desktop-contract" }

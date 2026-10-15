@@ -1,0 +1,25 @@
+/* Recent events and last-session summary. */
+/* One grid for the whole list so the time column lines up when some rows carry a date. */
+.event-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: auto 12px minmax(0, 1fr); align-items: baseline; gap: 8px; }
+.event-list li { display: contents; }
+.event-list time { min-width: 44px; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.event-text { min-width: 0; color: var(--ink); }
+.event-text strong { font-weight: 600; }
+.event-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--faint); align-self: center; }
+.event-dot.tone-accent { background: var(--accent); }
+.event-dot.tone-amber { background: var(--amber-dot); }
+.event-dot.tone-danger { background: var(--danger-dot); }
+.event-dot.tone-neutral { background: transparent; border: 1.5px solid var(--faint); }
+.event-dot.tone-faint { background: transparent; border: 1.5px dashed var(--line); }
+.event-empty { margin: 0; color: var(--muted); }
+.history-note { font-size: 11px; color: var(--muted); }
+
+.session-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; font-variant-numeric: tabular-nums; }
+.session-stat { display: grid; gap: 2px; padding: 12px 14px; border-radius: 10px; background: var(--surface-3); min-width: 0; }
+.session-stat span { font-size: 11px; color: var(--muted); }
+.session-stat strong { font-size: 18px; font-weight: 600; color: var(--ink); overflow-wrap: anywhere; }
+/* Each total stays whole; a narrow cell puts upload on its own line. */
+.session-stat .session-traffic { display: flex; flex-wrap: wrap; column-gap: 10px; }
+.session-stat .session-traffic span { font-size: inherit; color: inherit; white-space: nowrap; }
+.session-subhead { margin: 4px 0 0; font-size: 14px; font-weight: 600; color: var(--ink); }
+.history-card .panel-body { display: grid; gap: 14px; }

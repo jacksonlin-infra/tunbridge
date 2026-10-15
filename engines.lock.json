@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "product_version": "0.4.1",
+  "engine": {
+    "filename": "mihomo.exe",
+    "version": "v1.19.30",
+    "asset": "mihomo-windows-amd64-v2-v1.19.30.zip",
+    "size": 50100224,
+    "sha256": "b37011cd25192f1e7a7151b19a209df01f08c3da936be9e90155f94137740892"
+  }
+}

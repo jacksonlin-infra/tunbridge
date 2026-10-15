@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=TunBridge
+Comment=Add system-level TUN support to an existing proxy
+Exec=tunbridge-desktop
+Icon=tunbridge
+Terminal=false
+Categories=Network;
+StartupNotify=true

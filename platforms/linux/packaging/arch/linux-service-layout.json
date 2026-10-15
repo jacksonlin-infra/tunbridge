@@ -1,0 +1,31 @@
+{
+  "schema_version": 2,
+  "package_kind": "pacman",
+  "service_user": "root",
+  "service_group": "root",
+  "membership_policy": "not-required-kernel-peer-authorization",
+  "engine_path": "/usr/libexec/tunbridge/mihomo",
+  "engine_mode": "0755",
+  "engine_size": 50999422,
+  "engine_sha256": "8ad44e28fe72be4640254b96741b677f4074991b99186cc4486a1c28ded02b1a",
+  "binary_path": "/usr/libexec/tunbridge/tunbridge-service-linux",
+  "unit_path": "/usr/lib/systemd/system/tunbridge.service",
+  "runtime_directory": "/run/tunbridge",
+  "socket_path": "/run/tunbridge/service.sock",
+  "binary_mode": "0755",
+  "unit_mode": "0644",
+  "socket_mode": "0666",
+  "service_protocol_version": 4,
+  "service_capabilities": [
+    "status",
+    "start",
+    "stop",
+    "recover",
+    "lease",
+    "observe_local_traffic",
+    "close_owned_connections",
+    "remote_upstream",
+    "observe_mihomo_logs"
+  ],
+  "purge_group_only_when_empty": false
+}

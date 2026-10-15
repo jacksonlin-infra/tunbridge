@@ -1,0 +1,11 @@
+m0/engine/
+/m[0-3]/out/
+sidecar/
+node_modules/
+target/
+.npm-cache/
+apps/desktop/dist/
+apps/desktop/src-tauri/gen/
+artifacts/
+.claude/settings.local.json
+.DS_Store

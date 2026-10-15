@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2A6E5A"/>
+      <stop offset="1" stop-color="#123A30"/>
+    </linearGradient>
+    <linearGradient id="portal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0A211B"/>
+      <stop offset="1" stop-color="#0F2D25"/>
+    </linearGradient>
+    <linearGradient id="road" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#9BEBC6"/>
+      <stop offset="1" stop-color="#5FC79C" stop-opacity=".35"/>
+    </linearGradient>
+    <linearGradient id="arch" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#B4F3D6"/>
+      <stop offset="1" stop-color="#6FD3A8"/>
+    </linearGradient>
+  </defs>
+  <rect x="100" y="100" width="824" height="824" rx="186" fill="url(#bg)"/>
+  <rect x="100" y="100" width="824" height="824" rx="186" fill="none" stroke="#ffffff" stroke-opacity=".08" stroke-width="4"/>
+  <!-- tunnel portal -->
+  <path d="M300 690V500a212 212 0 0 1 424 0v190z" fill="url(#portal)"/>
+  <path d="M300 690V500a212 212 0 0 1 424 0v190" fill="none" stroke="url(#arch)" stroke-width="64" stroke-linejoin="round"/>
+  <!-- road into the tunnel -->
+  <path d="M396 690 L494 430 H530 L628 690 Z" fill="url(#road)"/>
+  <path d="M512 452v38M512 528v52M512 620v62" stroke="#0F2D25" stroke-width="16" stroke-linecap="round"/>
+  <!-- bridge deck -->
+  <rect x="196" y="684" width="632" height="64" rx="32" fill="#F2F8F4"/>
+  <path d="M232 752 Q512 872 792 752" fill="none" stroke="#8FE3BD" stroke-opacity=".75" stroke-width="30" stroke-linecap="round"/>
+</svg>
