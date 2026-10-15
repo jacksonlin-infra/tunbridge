@@ -12,6 +12,12 @@ applications → system network stack → TunBridge TUN → managed Mihomo engin
                                                      └→ a remote HTTP(S)/SOCKS5 endpoint you enter by hand
 ```
 
+<p align="center">
+  <img src="docs/images/overview.webp" alt="TunBridge overview with the system TUN running" width="860">
+</p>
+
+More screenshots: [docs/screenshots.md](docs/screenshots.md).
+
 TunBridge does **not** provide proxy servers, subscriptions or node lists, does not scan your network, and
 does not inspect TLS traffic. It only routes traffic to the upstream you choose.
 
@@ -84,3 +90,13 @@ TunBridge is licensed under the [GNU General Public License v3.0 or later](LICEN
 Mihomo, which is licensed under GPL-3.0; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 TunBridge is an independent project and is not affiliated with Mihomo, Clash or any proxy provider.
+
+## Star history
+
+<a href="https://www.star-history.com/#jacksonlin-infra/tunbridge&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=jacksonlin-infra/tunbridge&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=jacksonlin-infra/tunbridge&type=Date" />
+    <img alt="Star history chart" src="https://api.star-history.com/svg?repos=jacksonlin-infra/tunbridge&type=Date" />
+  </picture>
+</a>

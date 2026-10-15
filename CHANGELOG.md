@@ -3,6 +3,13 @@
 All notable changes to TunBridge are recorded here. The project follows
 [Semantic Versioning](https://semver.org/); every platform shares one version.
 
+## [Unreleased]
+
+### Changed
+
+- New installs show the interface in the system language (English, 简体中文, 繁體中文 or 日本語) instead of
+  always starting in 简体中文. A language chosen in Settings is kept.
+
 ## [0.4.1] - 2026-10-15
 
 First public release. Earlier versions were internal builds.
