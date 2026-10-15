@@ -3,7 +3,7 @@
 All notable changes to TunBridge are recorded here. The project follows
 [Semantic Versioning](https://semver.org/); every platform shares one version.
 
-## [0.4.1] - Unreleased
+## [0.4.1] - 2026-10-15
 
 First public release. Earlier versions were internal builds.
 
